@@ -1,6 +1,5 @@
-﻿namespace TodoApi.Models
+﻿namespace Todo.Presentation.Entities.Models
 {
-    #region snippet
     public class TodoItem
     {
         public long Id { get; set; }
@@ -8,5 +7,4 @@
         public bool IsComplete { get; set; }
         public string Secret { get; set; }
     }
-    #endregion
 }

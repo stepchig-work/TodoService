@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Todo.Business.Entities\Todo.Business.Entities.csproj" />
+    <ProjectReference Include="..\Todo.Business.Interface\Todo.Business.Interface.csproj" />
+    <ProjectReference Include="..\Todo.Common\Todo.Common.csproj" />
+    <ProjectReference Include="..\Todo.Presentation.Entities\Todo.Presentation.Entities.csproj" />
+  </ItemGroup>
+
+</Project>
