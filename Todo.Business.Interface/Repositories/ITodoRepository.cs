@@ -1,10 +1,10 @@
 ﻿
-using PresentationTodoItem = Todo.Presentation.Entities.TodoItem;
-using BusinessTodoItem = Todo.Business.Entities.TodoItem;
+using Todo.Common.Interface;
+using Todo.Presentation.Entities;
 
 namespace Todo.Business.Interface
 {
-	public interface ITodoRepository: IRepository<PresentationTodoItem>
+	public interface ITodoRepository: IRepository<TodoItem>
 	{
 	}
 }

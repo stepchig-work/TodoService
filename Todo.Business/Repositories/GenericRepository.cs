@@ -31,25 +31,25 @@ namespace Todo.Business
 			return mapper.Map<TClientEntity>(resultEntity);
 		}
 
-		public async Task AddRange(IEnumerable<TClientEntity> entities)
+		public async Task AddRangeAsync(IEnumerable<TClientEntity> entities)
 		{
 			var addedEntities = new List<TBusinessEntity>();
 			foreach (var entity in entities)
 			{
 				addedEntities.Add(mapper.Map<TBusinessEntity>(entity));
 			}
-			await innerRepository.AddRange(addedEntities);
+			await innerRepository.AddRangeAsync(addedEntities);
 		}
 
-		public TClientEntity Find(long id)
+		public async Task<TClientEntity> FindAsync(long id)
 		{
-			var result = innerRepository.Find(id);
+			var result = await innerRepository.FindAsync(id);
 			return mapper.Map<TClientEntity>(result);
 		}
 
-		public IEnumerable<TClientEntity> GetAllEntities()
+		public async Task<IEnumerable<TClientEntity>> GetAllEntitiesAsync()
 		{
-			var allEntities = innerRepository.GetAllEntities();
+			var allEntities = await innerRepository.GetAllEntitiesAsync();
 			var result = new List<TClientEntity>();
 			foreach (var entity in allEntities)
 			{
@@ -58,21 +58,21 @@ namespace Todo.Business
 			return result;
 		}
 
-		public void Remove(TClientEntity entity)
+		public async Task RemoveAsync(TClientEntity entity)
 		{
 			var removeEntity = mapper.Map<TBusinessEntity>(entity);
-			innerRepository.Remove(removeEntity);
+			await innerRepository.RemoveAsync(removeEntity);
 		}
 
-		public void Remove(long id)
+		public async Task RemoveAsync(long id)
 		{
-			innerRepository.Remove(id);
+			await innerRepository.RemoveAsync(id);
 		}
 
-		public TClientEntity Update(TClientEntity entity)
+		public async Task<TClientEntity> UpdateAsync(TClientEntity entity)
 		{
 			var updateEntity = mapper.Map<TBusinessEntity>(entity);
-			var resultEntity = innerRepository.Update(updateEntity);
+			var resultEntity = await innerRepository.UpdateAsync(updateEntity);
 			return mapper.Map<TClientEntity>(resultEntity);
 		}
 	}

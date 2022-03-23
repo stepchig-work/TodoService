@@ -7,7 +7,6 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 using Todo.Common.Interface;
-using Todo.DataAccess.Interface;
 
 namespace Todo.DataAccess
 {
@@ -24,7 +23,7 @@ namespace Todo.DataAccess
 
 			this.mapper = mapper;
 		}
-		protected abstract TEntity FindById(long id, TDbContext dbContext);
+		protected abstract Task<TEntity> FindByIdAsync(long id, TDbContext dbContext);
 
 		public async Task<TEntity> AddAsync(TEntity entity)
 		{
@@ -39,26 +38,26 @@ namespace Todo.DataAccess
 		}
 
 
-		public void Remove(TEntity entity)
+		public void RemoveAsync(TEntity entity)
 		{
-			Remove(entity.Id);
+			RemoveAsync(entity.Id);
 		}
 
-		public void Remove(long id)
+		public void RemoveAsync(long id)
 		{
 			using (var dbContext = new TDbContext())
 			{
-				var entity = FindById(id, dbContext);
+				var entity = FindByIdAsync(id, dbContext);
 				dbContext.Entry(entity).State = EntityState.Deleted;
 				dbContext.SaveChanges();
 			}
 		}
 
-		public TEntity Update(TEntity entity)
+		public async Task<TEntity> UpdateAsync(TEntity entity)
 		{
 			using (var dbContext = new TDbContext())
 			{
-				var existingEntity = FindById(entity.Id, dbContext);
+				var existingEntity = await FindByIdAsync(entity.Id, dbContext);
 				mapper.Map(entity, existingEntity);
 				dbContext.Entry(existingEntity).State = EntityState.Modified;
 				dbContext.SaveChanges();
@@ -66,7 +65,7 @@ namespace Todo.DataAccess
 			}
 		}
 
-		public async Task AddRange(IEnumerable<TEntity> entities)
+		public async Task AddRangeAsync(IEnumerable<TEntity> entities)
 		{
 
 			using (var dbContext = new TDbContext())
@@ -76,19 +75,19 @@ namespace Todo.DataAccess
 			}
 		}
 
-		public TEntity Find(long id)
+		public async Task<TEntity> FindAsync(long id)
 		{
 			using (var dbContext = new TDbContext())
 			{
-				return FindById(id, dbContext);
+				return await FindByIdAsync(id, dbContext);
 			}
 		}
 
-		public IEnumerable<TEntity> GetAllEntities()
+		public async Task<IEnumerable<TEntity>> GetAllEntitiesAsync()
 		{
 			using (var dbContext = new TDbContext())
 			{
-				return dbContext.Set<TEntity>().ToList();
+				return await dbContext.Set<TEntity>().ToListAsync();
 			}
 		}
 
