@@ -1,4 +1,4 @@
-﻿namespace Todo.Common
+﻿namespace Todo.Common.Interface
 {
 	public interface IIdentifiableEntity
 	{

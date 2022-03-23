@@ -1,8 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Todo.Business.Entities.Models;
+using Todo.Business.Entities;
 
-namespace Todo.DataAccess.Models
+namespace Todo.DataAccess
 {
     public class TodoContext : DbContext
     {
@@ -13,7 +13,6 @@ namespace Todo.DataAccess.Models
             : base(options)
         {
         }
-
 
         public DbSet<TodoItem> TodoItems { get; set; }
 

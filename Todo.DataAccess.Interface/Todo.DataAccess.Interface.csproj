@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Todo.Business.Entities\Todo.Business.Entities.csproj" />
-    <ProjectReference Include="..\Todo.Common\Todo.Common.csproj" />
+    <ProjectReference Include="..\Todo.Common.Interface\Todo.Common.Interface.csproj" />
   </ItemGroup>
 
 </Project>

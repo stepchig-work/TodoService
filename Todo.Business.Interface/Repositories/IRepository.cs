@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Todo.Common.Interface;
 
-namespace Todo.DataAccess.Interface
+namespace Todo.Business.Interface
 {
 	public interface IRepository<TEntity>
 		where TEntity: class, IIdentifiableEntity, new()

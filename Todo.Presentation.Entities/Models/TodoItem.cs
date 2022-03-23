@@ -1,6 +1,8 @@
-﻿namespace Todo.Presentation.Entities.Models
+﻿using Todo.Common.Interface;
+
+namespace Todo.Presentation.Entities
 {
-    public class TodoItem
+    public class TodoItem : IIdentifiableEntity
     {
         public long Id { get; set; }
         public string Name { get; set; }

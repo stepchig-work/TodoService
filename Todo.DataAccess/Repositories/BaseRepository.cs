@@ -6,10 +6,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
-using Todo.Common;
-using Todo.DataAccess.Interface.Repositories;
+using Todo.Common.Interface;
+using Todo.DataAccess.Interface;
 
-namespace Todo.DataAccess.Repositories
+namespace Todo.DataAccess
 {
 	public abstract class BaseRepository<TDbContext, TEntity> : IRepository<TEntity>
 		where TEntity: class, IIdentifiableEntity, new()

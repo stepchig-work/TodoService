@@ -1,6 +1,6 @@
-﻿using Todo.Common;
+﻿using Todo.Common.Interface;
 
-namespace Todo.Business.Entities.Models
+namespace Todo.Business.Entities
 {
     public class TodoItem: IIdentifiableEntity
     {

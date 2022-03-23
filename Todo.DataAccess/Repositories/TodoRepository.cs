@@ -2,11 +2,10 @@
 
 using AutoMapper;
 using System.Linq;
-using Todo.Business.Entities.Models;
-using Todo.DataAccess.Interface.Repositories;
-using Todo.DataAccess.Models;
+using Todo.Business.Entities;
+using Todo.DataAccess.Interface;
 
-namespace Todo.DataAccess.Repositories
+namespace Todo.DataAccess
 {
 	public class TodoRepository : BaseRepository<TodoContext, TodoItem>, ITodoRepository
 	{
