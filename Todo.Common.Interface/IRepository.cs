@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Todo.Common.Interface;
 
 namespace Todo.Common.Interface
 {

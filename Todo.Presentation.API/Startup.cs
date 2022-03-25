@@ -1,5 +1,4 @@
 using AutoMapper;
-using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,9 +24,9 @@ namespace Todo.Presentation
 		{
 			ConfigureMapping(services);
 
-			services.AddControllersWithViews();
-
 			services.AddAppContext(Configuration.GetConnectionString("TodoContext"));
+
+			services.AddControllersWithViews();
 
 			services.ConfigureDataAccessProject();
 			services.ConfigureBusinessProject();

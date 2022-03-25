@@ -3,23 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using Todo.Business.Interface;
 using Todo.Presentation.Entities;
 
 namespace TodoApi.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
         private readonly ITodoRepository todoRepository; 
-        private static ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
         public TodoItemsController(ITodoRepository todoRepository)
         {
+            Contract.Requires(todoRepository != null);
             this.todoRepository = todoRepository;
         }
 
@@ -27,7 +28,7 @@ namespace TodoApi.Controllers
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
 			try
-			{
+            {
                 var todoItems = await todoRepository.GetAllEntitiesAsync();
                 return Ok(todoItems);
 			}
