@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
+using log4net;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Threading.Tasks;
 using Todo.Common.Interface;
 
@@ -15,7 +14,9 @@ namespace Todo.DataAccess
 		where TDbContext: DbContext, new()
 		
 	{
-		protected readonly IMapper mapper;
+		protected readonly IMapper mapper; 
+		private static ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
 		protected BaseRepository(IMapper mapper)
 		{
@@ -38,16 +39,16 @@ namespace Todo.DataAccess
 		}
 
 
-		public void RemoveAsync(TEntity entity)
+		public async Task RemoveAsync(TEntity entity)
 		{
-			RemoveAsync(entity.Id);
+			await RemoveAsync(entity.Id);
 		}
 
-		public void RemoveAsync(long id)
+		public async Task RemoveAsync(long id)
 		{
 			using (var dbContext = new TDbContext())
 			{
-				var entity = FindByIdAsync(id, dbContext);
+				var entity = await FindByIdAsync(id, dbContext);
 				dbContext.Entry(entity).State = EntityState.Deleted;
 				dbContext.SaveChanges();
 			}
@@ -67,7 +68,6 @@ namespace Todo.DataAccess
 
 		public async Task AddRangeAsync(IEnumerable<TEntity> entities)
 		{
-
 			using (var dbContext = new TDbContext())
 			{
 				await dbContext.Set<TEntity>().AddRangeAsync(entities);
@@ -95,6 +95,7 @@ namespace Todo.DataAccess
 		{
 			if (entity.Id != 0)
 			{
+				log.Error("New entity Id cannot have a prederemined Id");
 				throw new ValidationException("New entity Id cannot have a prederemined Id");
 			}
 		}		

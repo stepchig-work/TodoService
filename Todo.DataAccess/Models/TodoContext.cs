@@ -4,18 +4,18 @@ using Todo.Business.Entities;
 
 namespace Todo.DataAccess
 {
-    public class TodoContext : DbContext
-    {
+	public class TodoContext : DbContext
+	{
 
-        public TodoContext() { }
+		public TodoContext() { }
 
-        public TodoContext(DbContextOptions<TodoContext> options)
-            : base(options)
-        {
-        }
+		public TodoContext(DbContextOptions<TodoContext> options)
+			: base(options)
+		{ }
 
-        public DbSet<TodoItem> TodoItems { get; set; }
+		public DbSet<TodoItem> TodoItems { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
-    }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
+		protected override void OnModelCreating(ModelBuilder modelBuilder) { }
+	}
 }

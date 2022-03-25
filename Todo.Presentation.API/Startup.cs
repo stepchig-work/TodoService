@@ -1,4 +1,5 @@
 using AutoMapper;
+using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,7 @@ using Todo.Common;
 using Todo.Common.ServiceCollectionExtentions;
 using Todo.DataAccess;
 
-namespace TodoApi
+namespace Todo.Presentation
 {
 	public class Startup
 	{
@@ -26,10 +27,12 @@ namespace TodoApi
 
 			services.AddControllersWithViews();
 
-			services.AddAppContext(Configuration.GetConnectionString("FoodDeliveryContext"));
+			services.AddAppContext(Configuration.GetConnectionString("TodoContext"));
 
 			services.ConfigureDataAccessProject();
 			services.ConfigureBusinessProject();
+			services.AddSwaggerGen();
+
 		}
 
 		private static void ConfigureMapping(IServiceCollection services)
@@ -49,6 +52,12 @@ namespace TodoApi
 			{
 				app.UseDeveloperExceptionPage();
 			}
+
+			app.UseSwagger();
+			app.UseSwaggerUI(c =>
+			{
+				c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+			});
 
 			app.UseHttpsRedirection();
 

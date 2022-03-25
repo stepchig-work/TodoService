@@ -4,7 +4,5 @@ using Todo.Common.Interface;
 
 namespace Todo.DataAccess.Interface
 {
-	public interface ITodoRepository: IRepository<TodoItem>
-	{
-	}
+	public interface ITodoRepository: IRepository<TodoItem>	{ }
 }

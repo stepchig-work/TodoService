@@ -1,3 +1,4 @@
+using log4net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,7 +14,9 @@ namespace TodoApi.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private readonly ITodoRepository todoRepository;
+        private readonly ITodoRepository todoRepository; 
+        private static ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
         public TodoItemsController(ITodoRepository todoRepository)
         {
@@ -30,6 +33,7 @@ namespace TodoApi.Controllers
 			}
             catch(Exception ex)
 			{
+                log.Error(ex.Message);
                 return BadRequest(ex.Message);
 			}
         }
@@ -51,6 +55,7 @@ namespace TodoApi.Controllers
             }
             catch(Exception ex)
             {
+                log.Error(ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -60,6 +65,7 @@ namespace TodoApi.Controllers
         {
             if (id != todoItem.Id)
             {
+                log.Error("Wrong Item to update");
                 return BadRequest();
             }            
 
@@ -68,8 +74,9 @@ namespace TodoApi.Controllers
                var updatedTodoItem =  await todoRepository.UpdateAsync(todoItem);
                return Ok(updatedTodoItem);
             }
-            catch (DbUpdateConcurrencyException) 
+            catch (DbUpdateConcurrencyException ex)
             {
+                log.Error(ex.Message);
                 return NotFound();
             }
 
@@ -84,7 +91,8 @@ namespace TodoApi.Controllers
                 return CreatedAtAction(newTodoItem.Name, newTodoItem.IsComplete, newTodoItem);
             }
 			catch(Exception ex)
-			{
+            {
+                log.Error(ex.Message);
                 return BadRequest(ex);
 			}
         }
@@ -99,6 +107,7 @@ namespace TodoApi.Controllers
             }
 			catch(Exception ex)
             {
+                log.Error(ex.Message);
                 return BadRequest(ex);
             }
         }       
